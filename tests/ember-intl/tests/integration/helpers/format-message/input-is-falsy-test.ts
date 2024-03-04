@@ -10,7 +10,23 @@ module(
     setupRenderingTest(hooks);
     setupIntl(hooks, 'en-us');
 
-    test('input is null and allowEmpty is true', async function (assert) {
+    test('input is an empty string', async function (assert) {
+      setupOnerror(() => {
+        assert.step('@formatjs/intl throws an error');
+      });
+
+      await render(hbs`
+        <div data-test-output>
+          {{format-message ""}}
+        </div>
+      `);
+
+      assert.verifySteps(['@formatjs/intl throws an error']);
+
+      resetOnerror();
+    });
+
+    test('input is null', async function (assert) {
       setupOnerror(() => {
         assert.step('@formatjs/intl throws an error');
       });
@@ -26,7 +42,7 @@ module(
       resetOnerror();
     });
 
-    test('input is undefined and allowEmpty is true', async function (assert) {
+    test('input is undefined', async function (assert) {
       setupOnerror((error: Error) => {
         assert.strictEqual(
           error.message,
