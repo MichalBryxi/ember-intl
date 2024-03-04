@@ -1,6 +1,5 @@
 import Helper from '@ember/component/helper';
 import { inject as service } from '@ember/service';
-import { isEmpty } from '@ember/utils';
 
 import type IntlService from '../services/intl';
 
@@ -37,7 +36,7 @@ export default class FormatTimeHelper extends Helper<FormatTimeSignature> {
       ? Object.assign({}, positionalOptions, namedOptions)
       : namedOptions;
 
-    if (isEmpty(value)) {
+    if (value === null || value === undefined || value === '') {
       if (options?.allowEmpty ?? this.allowEmpty) {
         return '';
       }

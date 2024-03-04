@@ -1,12 +1,11 @@
 import { warn } from '@ember/debug';
-import { isEmpty } from '@ember/utils';
 
 /**
  * @private
  * @hide
  */
 export default function missingMessage(key: string, locales: string[]): string {
-  if (isEmpty(locales)) {
+  if (locales.length === 0) {
     warn(
       `[ember-intl] No locale has been set. See https://ember-intl.github.io/ember-intl/docs/quickstart#4-configure-project`,
       false,
